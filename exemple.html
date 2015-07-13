@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DS - DataTable</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="lib/bootstrap-3.3/css/bootstrap.min.css">
+        <style>
+            ._dsDataTable th{
+                position: relative;
+                padding-right: 20px !important;
+            }
+            ._dsDataTable .arrow_order{
+                display: block;
+                position: absolute;
+                right: 2px;
+                top: 2px;
+                bottom: 2px;
+                width: 14px;
+                font-size: 13px;
+            }
+            ._dsDataTable .arrow_order span{
+                opacity: 0.3;
+            }
+            ._dsDataTable .asc span:first-child{
+                color: #337ab7;
+                opacity: 1;
+            }
+            ._dsDataTable .desc span:last-child{
+                color: #337ab7;
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Exemple DataTable - Ajax</h1>
+                    <table class="table table-bordered table-hover" id="1">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Date of birth</th>
+                                <th>Department</th>
+                                <th>E-mail</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script src="lib/jquery-2.1.4.js" type="text/javascript"></script>
+        <script src="dsDataTable.js" type="text/javascript"></script>
+        <script>
+            $('#1').dsDataTable({
+                search: {active: true, placeholder: 'Buscar'},
+                recordsPage: {active: true, rows: 10, next: 20, length: '5'},
+                labelTotal: {active: true, showing: 'Mostrando', of: 'de', total: 'do total', loading: 'Carregando...'},
+                pagination: {active: true, class: 'classNav'},
+                columns: [
+                    {name: "name", class: 'class_name'},
+                    {name: "surname"},
+                    {name: "date_birth", order: false},
+                    {name: "department"},
+                    {name: "email"},
+                    {name: "salary"}
+                ],
+                orderDefault: [
+//                    {name:"name", order:'asc'}
+                ],
+                ajax: {
+                    url: 'ajax.php',
+                    type: 'POST',
+                    addData: {variable: 'value'}
+                }
+            });
+        </script>
+    </body>
+</html>
