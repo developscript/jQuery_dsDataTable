@@ -1,9 +1,29 @@
-(function ($) {
+/*!
+ * 
+ * DevelopScript - DataTable v0.6.0 (http://developscript.com)
+ * 
+ * Licensed under the MIT license.
+ * 
+ * @file    dsDataTable.js
+ * @author  Rafael Pegorari
+ * @date    13/07/2015 
+ * 
+ * ====== Required ======
+ * This code was developed based on jQuery v2.1.4 and Bootstrap v3.3.5
+ * More informations
+ * jQuery url: https://jquery.com/
+ * Bootstrap url: http://getbootstrap.com/
+ * 
+ * ====== Globais ======
+ * $, jQuery, _dsSettings_default, _dsEmtName, _randomID, _mergeSettings, _dsPaginationGet, _dsSerchGet, _dsRecordsGet, _dsAjax, _dsPagination,
+ * _dsSearch, _dsRecordPages, _dsLabelTotal, _trigger_dsAjax, _dsOrderColumnsGet,_dsOrderColumns, _dsCreateElements, _dsDataTable
+ */
 
+(function ($) {
     var _dsSettings_default = {
         search: {
             active: true,
-            placeholder: 'Buscar',
+            placeholder: 'Search',
             button: '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
             autosearch: true,
             class: ''
@@ -12,18 +32,19 @@
             active: true,
             rows: 10,
             next: 20,
-            length: '5',
+            length: 5,
             class: ''
         },
         labelTotal: {
             active: true,
-            showing: 'Mostrando',
-            of: 'de',
-            total: 'do total',
-            loading: 'Carregando...',
-            filtrate: 'Filtrado de',
-            values_in_total: 'valores no total',
-            records_not_found: 'Registros não encontrado',
+            showing: 'Showing',
+            to: 'to',
+            of: 'of',
+            entries: 'entries',
+            loading: 'Loading...',
+            filter: 'Filter',
+            values_in_total: 'values ​​in total',
+            records_not_found: 'Records not found.',
             class: ''
         },
         pagination: {
@@ -39,40 +60,35 @@
         records: '_dsRecords',
         pagination: '_dsPagination',
         totais: '_dsTotais'
-    };
-
-    var _randomID = function () {
+    },
+    _randomID = function () {
         return '_dsDataTable_' + Math.random().toString(36).substr(2, 9);
-    };
-
-    var _mergeSettings = function (options) {
+    },
+    _mergeSettings = function (options) {
         return $.extend(true, {}, _dsSettings_default, options);
-    };
-    var _dsPaginationGet = function (_dsSettings) {
+    },
+    _dsPaginationGet = function (_dsSettings) {
         var val;
         if ($("#" + _dsSettings.id + " [name='" + _dsEmtName.pagination + "']").length) {
             val = $("#" + _dsSettings.id + " [name='" + _dsEmtName.pagination + "']").find('.active').find('a').data("page");
         }
         return Number((isNaN(val)) ? 1 : val);
-    };
-
-    var _dsSerchGet = function (_dsSettings) {
+    },
+    _dsSerchGet = function (_dsSettings) {
         var val = '';
         if ($("#" + _dsSettings.id + " [name='" + _dsEmtName.search + "']").length) {
             val = $("#" + _dsSettings.id + " [name='" + _dsEmtName.search + "']").val();
         }
         return val;
-    };
-
-    var _dsRecordsGet = function (_dsSettings) {
+    },
+    _dsRecordsGet = function (_dsSettings) {
         var val = _dsSettings.recordsPage.rows;
         if ($("#" + _dsSettings.id + " [name='" + _dsEmtName.records + "']").length) {
             val = $("#" + _dsSettings.id + " [name='" + _dsEmtName.records + "']").val();
         }
         return val;
-    };
-
-    var _dsAjax = function (_dsSettings) {
+    },
+    _dsAjax = function (_dsSettings) {
         var op = _dsSettings,
                 dataAjax = {
                     dsRecordPages: _dsRecordsGet(_dsSettings),
@@ -120,14 +136,12 @@
                 }
             }
         });
-    };
-
-    var _dsPagination = function (_dsSettings, pg) {
+    },
+    _dsPagination = function (_dsSettings, pg) {
         if (!_dsSettings.pagination.active) {
             return false;
         }
-        var op = _dsSettings.pagination,
-                pNow = _dsPaginationGet(_dsSettings),
+        var pNow = _dsPaginationGet(_dsSettings),
                 pTot = pg.total,
                 start = ((pNow - 2) < 1) ? 1 : pNow - 2,
                 end,
@@ -187,9 +201,8 @@
                 _dsAjax(_dsSettings);
             }
         });
-    };
-
-    var _dsSearch = function (_dsSettings) {
+    },
+    _dsSearch = function (_dsSettings) {
         if (!_dsSettings.search.active) {
             return false;
         }
@@ -215,9 +228,8 @@
                 _trigger_dsAjax(_dsSettings);
             }
         });
-    };
-
-    var _dsRecordPages = function (_dsSettings) {
+    },
+    _dsRecordPages = function (_dsSettings) {
         if (!_dsSettings.recordsPage.active) {
             return false;
         }
@@ -244,43 +256,35 @@
         $(ih).find("[name='" + _dsEmtName.records + "']").change(function () {
             _trigger_dsAjax(_dsSettings);
         });
-    };
-
-    /*
-     * Type
-     * Loading => 1
-     * Totais => 2
-     * Records not found => 3
-     */
-    var _dsLabelTotal = function (_dsSettings, type, page) {
+    },
+    // type [ Loading => 1,  Totais => 2,  Records not found => 3 ]
+    _dsLabelTotal = function (_dsSettings, type, page) {
         if (!_dsSettings.labelTotal.active) {
             return false;
         }
         var op = _dsSettings.labelTotal,
                 html;
         if (type === 2) {
-            html = op.showing + ' ' + (page.start + 1) + ' ' + op.of + ' ' + page.end + ' ' + op.total + ' ' + page.rows;
+            html = op.showing + ' ' + (page.start + 1) + ' ' + op.to + ' ' + page.end + ' ' + op.of + ' ' + page.rows +' '+ op.entries;
             if (page.rows !== page.total_rows) {
-                html += ' - ' + op.filtrate + ' ' + page.total_rows + ' ' + op.values_in_total;
+                html += ' - ' + op.filter + ' ' + page.total_rows + ' ' + op.values_in_total;
             }
             $("#" + _dsSettings.id + " [name='" + _dsEmtName.totais + "']").html(html);
         } else if (type === 3) {
             html = op.records_not_found;
             if (page.total_rows !== '0') {
-                html += ' - ' + op.filtrate + ' ' + page.total_rows + ' ' + op.values_in_total;
+                html += ' - ' + op.filter + ' ' + page.total_rows + ' ' + op.values_in_total;
             }
             $("#" + _dsSettings.id + " [name='" + _dsEmtName.totais + "']").html(html);
         } else if (type === 1) {
             $("#" + _dsSettings.id + " [name='" + _dsEmtName.totais + "']").html(op.loading);
         }
-    };
-
-    var _trigger_dsAjax = function (_dsSettings) {
+    },
+    _trigger_dsAjax = function (_dsSettings) {
         _dsPagination(_dsSettings, {total: 1});
         _dsAjax(_dsSettings);
-    };
-
-    var _dsOrderColumnsGet = function (_dsSettings) {
+    },
+    _dsOrderColumnsGet = function (_dsSettings) {
         var op = _dsSettings,
                 order = [];
         $(_dsSettings.element).find('th').each(function (i, th) {
@@ -293,9 +297,8 @@
             }
         });
         return order;
-    };
-
-    var _dsOrderColumns = function (_dsSettings) {
+    },
+    _dsOrderColumns = function (_dsSettings) {
         var op = _dsSettings,
                 arrow = '<div class="arrow_order"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>';
         $(_dsSettings.element).find('th').each(function (i, th) {
@@ -327,9 +330,8 @@
                 });
             }
         });
-    };
-
-    var _dsCreateElements = function (_dsSettings) {
+    },
+    _dsCreateElements = function (_dsSettings) {
         var html = $(_dsSettings.element).wrap('<div class="_dsDataTable" id="' + _dsSettings.id + '"></div>'),
                 bottom;
         $('<div class="row" name="' + _dsEmtName.top + '"></div>').insertBefore(html);
@@ -342,9 +344,8 @@
             $(_dsSettings.element).append('<tbody></tbody>');
         }
 
-    };
-
-    var _dsDataTable = function (options) {
+    },
+    _dsDataTable = function (options) {
         var _dsSettings = _mergeSettings(options);
 
         _dsSettings.element = this;

@@ -1,4 +1,38 @@
 <?php
+/*!
+ * 
+ * DevelopScript - DataTable v0.6.0 (http://developscript.com)
+ * 
+ * Licensed under the MIT license.
+ * 
+ * @file            ajax.php
+ * @author          Rafael Pegorari
+ * @date            13/07/2015 
+ * 
+ * 
+ * ====== Get ======
+ * ['dsRecordPages']    => Amounts of records per page.
+ * ['dsSearch']         => String to input search.
+ * ['dsPageNow']        => Current page.
+ * ['dsOrder']          => Order of the columns = ['dsOrder'][*] = array("name" => "nameColumn", "order" => "ASC||DESC").
+ * 
+ * 
+ * ====== Returns ======
+ * $return['total_rows']  => Total table rows.
+ * $return['rows']        => Total table rows - query.
+ * $return['pages']       => Full table pages = ceil($total_rows_query / $_POST['dsRecordPages']).
+ * $return['fields'][]    => Associated fields ex.['name'] => 'Rafael', ['surname'] => 'Pegorari'. 
+ * ****** Name and surname fields must be set in. ******
+ * .dsDataTable({
+ *               columns: [
+ *                   {name: "name"},
+ *                   {name: "surname"}
+ *              ],
+ * *****************************************************
+ * $return['start']       => Start to limit.
+ * $return['end']         => End to limit = $start_from + mysql_num_rows($sql).
+ * 
+ */
 
 $server = 'localhost';
 $user = 'root';
@@ -45,11 +79,11 @@ if(isset($_POST['dsOrder']) && count($_POST['dsOrder'] !== 0)){
 //====== TOTAL PG ======
 $total_rows = mysql_num_rows(mysql_query($select));
 $total_rows_query = mysql_num_rows(mysql_query($select . $where));
-$total_pages_query = ceil($total_rows_query / $_POST['dsRecordPages']);
+$total_pages = ceil($total_rows_query / $_POST['dsRecordPages']);
 
 $return['total_rows'] = $total_rows;
 $return['rows'] = $total_rows_query;
-$return['pages'] = $total_pages_query;
+$return['pages'] = $total_pages;
 
 //====== FIELDS ====== 
 if ($total_rows_query != 0) {

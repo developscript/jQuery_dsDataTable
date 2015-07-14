@@ -1,0 +1,43 @@
+/*!
+ * 
+ * DevelopScript - DataTable v0.6.0 (http://developscript.com)
+ * 
+ * Licensed under the MIT license.
+ * 
+ * @file    style-dsDataTable.css
+ * @author  Rafael Pegorari
+ * @date    13/07/2015
+ * 
+ *
+ * ====== Required ======
+ * This code was developed based on jQuery v2.1.4 and Bootstrap v3.3.5
+ * More informations
+ * jQuery url: https://jquery.com/
+ * Bootstrap url: http://getbootstrap.com/
+ *
+ */
+
+._dsDataTable th{
+    position: relative;
+    padding-right: 20px !important;
+}
+._dsDataTable .arrow_order{
+    display: block;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    width: 14px;
+    font-size: 13px;
+}
+._dsDataTable .arrow_order span{
+    opacity: 0.3;
+}
+._dsDataTable .asc span:first-child{
+    color: #337ab7;
+    opacity: 1;
+}
+._dsDataTable .desc span:last-child{
+    color: #337ab7;
+    opacity: 1;
+}
