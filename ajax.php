@@ -1,5 +1,6 @@
 <?php
-/*!
+
+/* !
  * 
  * DevelopScript - DataTable v0.6.0 (http://developscript.com)
  * 
@@ -59,7 +60,20 @@ if (isset($_POST['dsSearch']) && $_POST['dsSearch'] != '') {
     $where .= " AND (name LIKE '%" . $_POST['dsSearch'] . "%' OR "
             . "surname LIKE '%" . $_POST['dsSearch'] . "%' OR "
             . "email LIKE '%" . $_POST['dsSearch'] . "%' OR "
-            . "department LIKE '%" . $_POST['dsSearch'] . "%' )";
+            . "department LIKE '%" . $_POST['dsSearch'] . "%' ";
+    if (is_numeric($_POST['dsSearch'])) {
+        $where .= " OR salary = " . $_POST['dsSearch'];
+    }
+    else if (count(explode("-", $_POST['dsSearch'])) === 3) {
+        list($Y, $m, $d) = explode("-", $_POST['dsSearch']);
+        $Y = intval($Y);
+        $m = intval($m);
+        $d = intval($d);
+        if ($Y !== 0 && $m !== 0 && $d !== 0 && checkdate($m, $d, $Y)) {
+            $where .= " OR date_birth = STR_TO_DATE('" . $Y . "-" . $m . "-" . $d . "','%Y-%m-%d')";
+        }
+    }
+    $where .= " )";
 }
 
 //====== LIMIT ======
@@ -68,10 +82,10 @@ $limit = " LIMIT " . $start_from . ", " . $_POST['dsRecordPages'];
 
 //====== ORDER ======
 $order = '';
-if(isset($_POST['dsOrder']) && count($_POST['dsOrder'] !== 0)){
+if (isset($_POST['dsOrder']) && count($_POST['dsOrder'] !== 0)) {
     $order = " ORDER BY";
-    foreach($_POST['dsOrder'] as $obj){
-        $order .= ' '.$obj['name'].' '.$obj['order'].',';
+    foreach ($_POST['dsOrder'] as $obj) {
+        $order .= ' ' . $obj['name'] . ' ' . $obj['order'] . ',';
     }
     $order = substr($order, 0, -1);
 }
