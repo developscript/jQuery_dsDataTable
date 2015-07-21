@@ -19,6 +19,9 @@
 ._dsDataTable *{
     box-sizing: border-box;
 }
+._dsDataTable {
+    overflow: auto;
+}
 ._dsDataTable th{
     position: relative;
     padding-right: 20px !important;
@@ -30,10 +33,10 @@
 ._dsDataTable .arrow_order{
     display: block;
     position: absolute;
-    right: 2px;
-    top: -2px;
-    bottom: 2px;
-    width: 14px;
+    right: 5px;
+    top: 7px;
+    bottom: 7px;
+    width: 8px;
 }
 ._dsDataTable .arrow_order span{
     opacity: 0.3;
@@ -51,10 +54,6 @@
 ._dsDataTable .pull-right {
     float: right!important;
 }
-._dsDataTable .row{
-    margin-right: -15px;
-    margin-left: -15px;
-}
 ._dsDataTable .col-12 {
     width: 12%;
 }
@@ -67,8 +66,6 @@
 ._dsDataTable .col-12, ._dsDataTable .col-22, ._dsDataTable .col-100{
     position: relative;
     min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
 }
 ._dsDataTable .text-center {
     text-align: center;
@@ -77,6 +74,7 @@
 
 /* Table */
 ._dsDataTable .table {
+    display: table;
     width: 100%;
     max-width: 100%;
     margin-bottom: 5px;
@@ -242,23 +240,29 @@
     border-radius: 50%;
 }
 ._dsDataTable .icon-arrow {
-    display: inline-block;
-    width: 10px;
+    position: absolute;
+    display: table;
+    width: 8px;
+    height: 8px;
 }
 ._dsDataTable .icon-arrow:after {
     content: '';
-    display: inline-block;
-    width: 5px;
-    height: 5px;
+    display: table;
+    width: 7px;
+    height: 7px;
     border-top: 2px solid #333;
     border-right: 2px solid #333;
 }
 ._dsDataTable .top{
+    top:0px;
+    left:0px;
     -moz-transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
 ._dsDataTable .bottom{
+    bottom:0px;
+    left:0px;
     -moz-transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
     transform: rotate(135deg);
