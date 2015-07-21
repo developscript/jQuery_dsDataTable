@@ -334,8 +334,8 @@
     _dsCreateElements = function (_dsSettings) {
         var html = $(_dsSettings.element).wrap('<div class="_dsDataTable" id="' + _dsSettings.id + '"></div>'),
                 bottom;
-        $('<div class="row" name="' + _dsEmtName.top + '"></div>').insertBefore(html);
-        bottom = $('<div class="row" name="' + _dsEmtName.bottom + '"></div>').insertAfter(html);
+        $('<div name="' + _dsEmtName.top + '"></div>').insertBefore(html);
+        bottom = $('<div name="' + _dsEmtName.bottom + '"></div>').insertAfter(html);
 
         $(bottom).append('<div class="pull-left col-100 ' + _dsSettings.labelTotal.class + '" name="' + _dsEmtName.totais + '"></div>');
         $(bottom).append('<div class="col-100 text-center ' + _dsSettings.pagination.class + '"><ul name="' + _dsEmtName.pagination + '" class="pagination"></ul></div>');
