@@ -35,12 +35,11 @@ _dsDataTable is a plug-in for jQuery based on bootstrap css and working with AJA
 * Sort column by clicking the th element.
 
 ## Installation
-The installation is to add styles, bootstrap and dsDataTable, add the javascripts, jQuery and dsDatatable.
+The installation is to add style dsDataTable, and add the javascripts, jQuery and dsDatatable.
 The plugin was developed based on versions of jQuery-2.1.4 and Bootstrap-3.3.5.
 
 **Style CSS**
 ```html
-<link rel="stylesheet" href="lib/bootstrap-3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="style-dsDataTable.css">
 ```
 
@@ -59,7 +58,6 @@ The plugin was developed based on versions of jQuery-2.1.4 and Bootstrap-3.3.5.
         <tr>
             <th>Name</th>
             <th>Surname</th>
-            <th>Date of birth</th>
             <th>Department</th>
             <th>E-mail</th>
             <th>Salary</th>
@@ -73,8 +71,7 @@ The plugin was developed based on versions of jQuery-2.1.4 and Bootstrap-3.3.5.
 $('#exemple').dsDataTable({
     columns: [
         {name: "name", class: 'class_name'},
-        {name: "surname"},
-        {name: "date_birth", order: false},
+        {name: "surname", order: false},
         {name: "department"},
         {name: "email"},
         {name: "salary"}
