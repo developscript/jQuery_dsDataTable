@@ -35,16 +35,8 @@
  * 
  */
 
-$server = 'localhost';
-$user = 'root';
-$password = '';
-$table = 'dsdatatable';
-
-$db = mysql_connect($server, $user, $password) or die('Error!');
-
-mysql_select_db($table, $db) or die('Error!');
-
-
+$conn = new PDO('mysql:host=localhost;dbname=dsdatatable', 'root', '');
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //====== ARRAY RETURN ======
 $return = array();
 
@@ -78,24 +70,23 @@ if (isset($_POST['dsOrder']) && count($_POST['dsOrder'] !== 0)) {
     $order = substr($order, 0, -1);
 }
 
+
 //====== TOTAL PG ======
-$total_rows = mysql_num_rows(mysql_query($select));
-$total_rows_query = mysql_num_rows(mysql_query($select . $where));
+$total_rows = $conn->query($select)->rowCount();
+$total_rows_query = $conn->query($select . $where)->rowCount();
 $total_pages = ceil($total_rows_query / $_POST['dsRecordPages']);
 
 $return['total_rows'] = $total_rows;
 $return['rows'] = $total_rows_query;
 $return['pages'] = $total_pages;
 
+
 //====== FIELDS ====== 
 if ($total_rows_query != 0) {
-    $sql = mysql_query($select . $where . $order . $limit);
-    while ($fields = mysql_fetch_assoc($sql)) {
-        $return['fields'][] = $fields;
-    }
-
+    $fields = $conn->query($select . $where . $order . $limit);
+    $return['fields'] = $fields->fetchAll(\PDO :: FETCH_ASSOC);
     $return['start'] = $start_from;
-    $return['end'] = $start_from + mysql_num_rows($sql);
+    $return['end'] = $start_from + $fields->rowCount();
 }
 
 echo json_encode($return);

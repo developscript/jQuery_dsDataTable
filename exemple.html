@@ -1,6 +1,6 @@
 <!--
  * 
- * DevelopScript - DataTable v0.6.0 (http://developscript.com)
+ * DevelopScript - DataTable v0.6.5 (http://developscript.com)
  * 
  * Licensed under the MIT license.
  * 
@@ -13,6 +13,7 @@
  * More informations
  * jQuery url: https://jquery.com/
  * Bootstrap url: http://getbootstrap.com/
+ * 
  *
  -->
 <!DOCTYPE html>
@@ -21,7 +22,6 @@
         <title>DS - DataTable</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="lib/bootstrap-3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="style-dsDataTable.css">
     </head>
     <body>
@@ -29,12 +29,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Exemple DataTable - Ajax</h1>
-                    <table class="table table-bordered table-hover" id="table">
+                    <table class="table" id="table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Surname</th>
-                                <th>Date of birth</th>
                                 <th>Department</th>
                                 <th>E-mail</th>
                                 <th>Salary</th>
@@ -140,7 +139,6 @@
              *       columns: [
              *           {name: "name"},
              *           {name: "surname"},
-             *           {name: "date_birth"},
              *           {name: "department"},
              *           {name: "email"},
              *           {name: "salary"}
@@ -154,14 +152,13 @@
             $('#table').dsDataTable({
                 columns: [
                     {name: "name", class: 'class_name'},
-                    {name: "surname"},
-                    {name: "date_birth", order: false},
+                    {name: "surname", order: false},
                     {name: "department"},
                     {name: "email"},
                     {name: "salary"}
                 ],
                 ajax: {
-                    url: 'ajax.php',
+                    url: 'ajaxPDO.php',
                     type: 'POST'
                 }
             });

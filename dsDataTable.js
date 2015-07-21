@@ -1,6 +1,6 @@
 /*!
  * 
- * DevelopScript - DataTable v0.6.0 (http://developscript.com)
+ * DevelopScript - DataTable v0.6.5 (http://developscript.com)
  * 
  * Licensed under the MIT license.
  * 
@@ -24,7 +24,7 @@
         search: {
             active: true,
             placeholder: 'Search',
-            button: '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
+            button: '<span class="icon-seach" aria-hidden="true"></span>',
             autosearch: true,
             class: ''
         },
@@ -208,7 +208,7 @@
         }
         var op = _dsSettings.search,
                 h =
-                '<div class="pull-right col-md-2 ' + op.class + '">' +
+                '<div class="pull-right col-22 ' + op.class + '">' +
                 '   <div class="form-group">' +
                 '       <div class="input-group">' +
                 '           <input type="text" class="form-control" name="' + _dsEmtName.search + '" placeholder="' + op.placeholder + '">' +
@@ -244,7 +244,7 @@
         }
 
         h =
-                '<div class="pull-left col-md-1 ' + op.class + '">' +
+                '<div class="pull-left col-12 ' + op.class + '">' +
                 '   <div class="form-group">' +
                 '       <select name="' + _dsEmtName.records + '" class="form-control">' +
                 '           <option value="' + op.rows + '">' + op.rows + '</option>' + option +
@@ -300,7 +300,7 @@
     },
     _dsOrderColumns = function (_dsSettings) {
         var op = _dsSettings,
-                arrow = '<div class="arrow_order"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>';
+                arrow = '<div class="arrow_order"><span class="icon-arrow top"></span> <span class="icon-arrow bottom"></span></div>';
         $(_dsSettings.element).find('th').each(function (i, th) {
             var _this = this;
             if (typeof op.columns[i].class !== 'undefined') {
@@ -337,8 +337,8 @@
         $('<div class="row" name="' + _dsEmtName.top + '"></div>').insertBefore(html);
         bottom = $('<div class="row" name="' + _dsEmtName.bottom + '"></div>').insertAfter(html);
 
-        $(bottom).append('<div class="pull-left col-md-12 ' + _dsSettings.labelTotal.class + '" name="' + _dsEmtName.totais + '"></div>');
-        $(bottom).append('<div class="col-md-12 text-center ' + _dsSettings.pagination.class + '"><ul name="' + _dsEmtName.pagination + '" class="pagination"></ul></div>');
+        $(bottom).append('<div class="pull-left col-100 ' + _dsSettings.labelTotal.class + '" name="' + _dsEmtName.totais + '"></div>');
+        $(bottom).append('<div class="col-100 text-center ' + _dsSettings.pagination.class + '"><ul name="' + _dsEmtName.pagination + '" class="pagination"></ul></div>');
 
         if ($(_dsSettings.element).find('tbody').length === 0) {
             $(_dsSettings.element).append('<tbody></tbody>');
