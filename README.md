@@ -2,7 +2,7 @@
 
 _dsDataTable is a plug-in for [jQuery](//jquery.com) based on bootstrap css and working with AJAX requests. In order to, with some configurations create a PivotTable with AJAX requests.
 
-## [Exemple...](http://rafapegorari.github.io/jQuery_dsDataTable/)
+[Exemple...](http://rafapegorari.github.io/jQuery_dsDataTable/)
 
 ## Having support
 
