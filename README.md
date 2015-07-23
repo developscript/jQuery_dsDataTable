@@ -1,8 +1,8 @@
 # _dsDataTable plug-in for jQuery
 
-_dsDataTable is a plug-in for [jQuery](//jquery.com) based on bootstrap css and working with AJAX requests. In order to, with some configurations create a PivotTable with AJAX requests.
+_dsDataTable is a plug-in for [jQuery](//jquery.com) based on bootstrap css and working with AJAX requests. In order to, with some configurations create a dinamic table with AJAX requests.
 
-[Exemple...](http://rafapegorari.github.io/jQuery_dsDataTable/)
+### [Exemple...](http://rafapegorari.github.io/jQuery_dsDataTable/)
 
 ## Having support
 
@@ -55,7 +55,7 @@ The plugin was developed based on versions of jQuery-2.1.4 and Bootstrap-3.3.5.
 
 **HTML**
 ```html
-<table class="table table-bordered table-hover" id="exemple">
+<table class="table" id="exemple">
     <thead>
         <tr>
             <th>Name</th>
@@ -91,7 +91,7 @@ $('#exemple').dsDataTable({
 search: {
    active: true,
    placeholder: 'Search',
-   button: '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
+   button: '<span class="icon-seach" aria-hidden="true"></span>',
    autosearch: true,
    class: ''
 },
